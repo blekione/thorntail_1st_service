@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+   <modelVersion>4.0.0</modelVersion>
+   <groupId>com.beond</groupId>
+   <artifactId>bill_validation_service</artifactId>
+   <name>Thorntail Example</name>
+   <version>1.0.0-SNAPSHOT</version>
+   <packaging>war</packaging>
+
+   <properties>
+      <auth0.domain>${billvalidation.auth0.domain}</auth0.domain>
+      <auth0.clientId>${billvalidation.auth0.clientId}</auth0.clientId>
+      <auth0.clientSecret>${billvalidation.auth0.clientSecret}</auth0.clientSecret>
+      <version.thorntail>2.4.0.Final</version.thorntail>
+      <maven.compiler.source>1.8</maven.compiler.source>
+      <maven.compiler.target>1.8</maven.compiler.target>
+      <failOnMissingWebXml>false</failOnMissingWebXml>
+      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+      <version.vaadin>13.0.7</version.vaadin>
+   </properties>
+
+   <dependencyManagement>
+      <dependencies>
+         <dependency>
+            <groupId>io.thorntail</groupId>
+            <artifactId>bom-all</artifactId>
+            <version>${version.thorntail}</version>
+            <scope>import</scope>
+            <type>pom</type>
+         </dependency>
+         <dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin-bom</artifactId>
+            <version>${version.vaadin}</version>
+            <type>pom</type>
+            <scope>import</scope>
+         </dependency>
+      </dependencies>
+   </dependencyManagement>
+
+   <build>
+
+      <resources>
+         <resource>
+            <filtering>true</filtering>
+            <directory>src/main/resources</directory>
+            <includes>
+               <include>web.xml</include>
+            </includes>
+            <targetPath>${project.basedir}/src/main/webapp/WEB-INF</targetPath>
+
+         </resource>
+         <resource>
+            <filtering>true</filtering>
+            <directory>src/main/resources/</directory>
+            <includes>
+               <include>rebel.xml</include>
+            </includes>
+            <targetPath>${project.build.directory}/classes</targetPath>
+
+         </resource>
+      </resources>
+      <finalName>demo</finalName>
+
+
+      <plugins>
+         <plugin>
+            <groupId>io.thorntail</groupId>
+            <artifactId>thorntail-maven-plugin</artifactId>
+            <version>${version.thorntail}</version>
+
+            <executions>
+               <execution>
+                  <id>package</id>
+                  <goals>
+                     <goal>package</goal>
+                  </goals>
+                  <configuration>
+                     <hollow>true</hollow>
+                  </configuration>
+               </execution>
+            </executions>
+         </plugin>
+
+         <!-- <plugin> -->
+         <!-- <groupId>org.apache.maven.plugins</groupId> -->
+         <!-- <artifactId>maven-war-plugin</artifactId> -->
+         <!-- <version>3.2.3</version> -->
+         <!-- <configuration> -->
+         <!-- <webXml>${project.build.directory}/test/web.xml</webXml> -->
+         <!-- </configuration> -->
+         <!-- </plugin> -->
+
+         <!-- <plugin> -->
+         <!-- <groupId>org.codehaus.mojo</groupId> -->
+         <!-- <artifactId>keytool-maven-plugin</artifactId> -->
+         <!-- <version>1.5</version> -->
+         <!-- <configuration> -->
+         <!-- <keystore>${project.build.directory}/keystore.jks</keystore> -->
+         <!-- <storepass>password</storepass> -->
+         <!-- <keypass>password</keypass> -->
+         <!-- <alias>httpskey</alias> -->
+         <!-- <dname>CN=localhost</dname> -->
+         <!-- <sigalg>SHA1withRSA</sigalg> -->
+         <!-- <validity>100</validity> -->
+         <!-- <keyalg>RSA</keyalg> -->
+         <!-- <keysize>2048</keysize> -->
+         <!-- </configuration> -->
+         <!-- <executions> -->
+         <!-- <execution> -->
+         <!-- <phase>generate-resources</phase> -->
+         <!-- <goals> -->
+         <!-- <goal>generateKeyPair</goal> -->
+         <!-- </goals> -->
+         <!-- </execution> -->
+         <!-- </executions> -->
+         <!-- </plugin> -->
+      </plugins>
+   </build>
+
+   <dependencies>
+      <dependency>
+         <groupId>com.vaadin</groupId>
+         <artifactId>vaadin-core</artifactId>
+      </dependency>
+
+      <dependency>
+         <groupId>com.auth0</groupId>
+         <artifactId>mvc-auth-commons</artifactId>
+         <version>1.0.6</version>
+      </dependency>
+      <dependency>
+         <groupId>com.auth0</groupId>
+         <artifactId>java-jwt</artifactId>
+         <version>3.8.1</version>
+      </dependency>
+      <dependency>
+         <groupId>com.auth0</groupId>
+         <artifactId>jwks-rsa</artifactId>
+         <version>0.8.2</version>
+      </dependency>
+      <dependency>
+         <groupId>javax.servlet</groupId>
+         <artifactId>javax.servlet-api</artifactId>
+         <version>3.1.0</version>
+      </dependency>
+
+
+      <dependency>
+         <groupId>io.thorntail</groupId>
+         <artifactId>jaxrs-jsonb</artifactId>
+      </dependency>
+      <dependency>
+         <groupId>io.thorntail</groupId>
+         <artifactId>logging</artifactId>
+      </dependency>
+      <!-- <dependency> -->
+      <!-- <groupId>io.thorntail</groupId> -->
+      <!-- <artifactId>microprofile-jwt</artifactId> -->
+      <!-- </dependency> -->
+      <dependency>
+         <groupId>io.thorntail</groupId>
+         <artifactId>cdi</artifactId>
+      </dependency>
+
+
+      <dependency>
+         <groupId>io.thorntail</groupId>
+         <artifactId>thorntail-runner</artifactId>
+         <version>${version.thorntail}</version>
+      </dependency>
+
+
+      <dependency>
+         <groupId>io.thorntail</groupId>
+         <artifactId>management</artifactId>
+      </dependency>
+      <dependency>
+         <groupId>io.thorntail</groupId>
+         <artifactId>undertow</artifactId>
+      </dependency>
+      <!-- <dependency> -->
+      <!-- <groupId>io.thorntail</groupId> -->
+      <!-- <artifactId>jpa</artifactId> -->
+      <!-- </dependency> -->
+      <!-- <dependency> -->
+      <!-- <groupId>io.thorntail</groupId> -->
+      <!-- <artifactId>cdi</artifactId> -->
+      <!-- </dependency> -->
+      <dependency>
+         <groupId>io.thorntail</groupId>
+         <artifactId>swagger</artifactId>
+      </dependency>
+      <dependency>
+         <groupId>io.thorntail</groupId>
+         <artifactId>swagger-webapp</artifactId>
+      </dependency>
+   </dependencies>
+
+   <profiles>
+      <profile>
+         <id>jrebel</id>
+         <build>
+            <plugins>
+               <plugin>
+                  <groupId>org.zeroturnaround</groupId>
+                  <artifactId>jrebel-maven-plugin</artifactId>
+                  <version>1.1.9</version>
+                  <executions>
+                     <execution>
+                        <id>generate-rebel-xml</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                           <goal>generate</goal>
+                        </goals>
+                     </execution>
+                  </executions>
+               </plugin>
+            </plugins>
+         </build>
+      </profile>
+   </profiles>
+</project>

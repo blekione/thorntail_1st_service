@@ -1,0 +1,6 @@
+thorntail:
+  logging: DEBUG
+  https:
+    certificate:
+      generate: true
+    port: 8443

@@ -1,0 +1,6 @@
+## the file contains credentials to Auth0 application and is generated at build time (look pom.xml).
+
+src/main/webapp/WEB-INF/web.xml
+
+## thorntail service runner files
+.thorntail-runner-cache/
